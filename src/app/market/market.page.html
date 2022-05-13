@@ -1,0 +1,84 @@
+<ion-header>
+  <!--search header-->
+  <div [hidden]="!showSearch">
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Market</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="search()">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar class="toolbar" color="primary">
+      <ion-searchbar (ionChange)="find($event.target)" class="w-full h-full" animated></ion-searchbar>
+    </ion-toolbar>
+  </div>
+  <!--market header-->
+  <ion-toolbar [hidden]="showSearch">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Market</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="search()">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-select [value]="filter" (ionChange)="filterChange($event.target)" interface="action-sheet" class="ion-padding">
+    <ion-select-option *ngFor="let v of compare" [value]="v">{{v}}</ion-select-option>
+  </ion-select>
+  <!--ionic app loads-->
+  <ion-list [hidden]="nodata">
+    <ion-item *ngFor="let v of skeleton" [hidden]="data.length!==0">
+      <ion-avatar slot="start" class="item-avatar">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <ion-skeleton-text animated></ion-skeleton-text>
+        <div class="my-4"></div>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-label>
+      <ion-label slot="end">
+        <h2 class="flex justify-around">
+          <ion-skeleton-text animated></ion-skeleton-text>
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </h2>
+        <div class="text-right">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </div>
+      </ion-label>
+    </ion-item>
+    <!--after loading data-->
+    <ion-item button *ngFor="let v of data" [hidden]="!includes(v['symbol']) || v.price===0" (click)="details(v)"
+      class="item-height">
+      <ion-avatar slot="start" class="item-avatar">
+        <ion-img [src]="'assets/icon/'+v.symbol+'.png'"></ion-img>
+      </ion-avatar>
+      <!--ion label for item name and price-->
+      <ion-label>
+        <h2>{{v.symbol}}</h2>
+        <h2 [class]="v.color">{{v.price+" "+filter}}</h2>
+      </ion-label>
+      <!--percentage and volumne-->
+      <ion-label slot="end">
+        <h2 [class]="['ion-color-danger','flex',v.color,'justify-end'].join(' ')">
+          <ion-icon [name]="v.color=='text-red-600'?'arrow-down':'arrow-up'"></ion-icon>
+          {{v.percent}}%
+        </h2>
+        <h2 [class]="'text-right '+v.color">{{v.volume}}</h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <!--no data image display-->
+  <div [hidden]="!nodata" class="ion-padding">
+    <ion-img src="assets/offline.png"></ion-img>
+  </div>
+
+</ion-content>

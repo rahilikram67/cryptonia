@@ -1,0 +1,7 @@
+{
+  "name": "cryptonia",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

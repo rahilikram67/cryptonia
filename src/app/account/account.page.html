@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-menu-button></ion-menu-button>
+      <ion-title>Account</ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- not registered -->
+  <div [hidden]="registered">
+    <ion-avatar [hidden]="activeScan" class="mx-auto my-5 h-52 w-52">
+      <img src="assets/scan.gif">
+    </ion-avatar>
+    <video #video [hidden]="!activeScan" class="border rounded-lg mx-auto my-5 h-52 w-52"></video>
+    <canvas #canvas hidden></canvas>
+    <ion-buttons class="border-2 mx-4 rounded-lg">
+      <ion-input [(ngModel)]="input" type="text" placeholder="Wallet Address"></ion-input>
+      <ion-button (click)="startScan()" expand="block" color="primary">
+        <ion-icon [hidden]="activeScan" size="large" name="qr-code-outline"></ion-icon>
+        <ion-icon [hidden]="!activeScan" size="large" name="camera-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <p class="mt-1 ml-5 text-red-600">{{this.validMsg}}</p>
+    <ion-button (click)="checkWallet()" class="mx-auto block w-40" color="primary">
+      Add Wallet
+      <ion-icon slot="end" name="wallet"></ion-icon>
+    </ion-button>
+    <p class="text-xl ml-3  mt-3">Support Coins:</p>
+    <div class="flex flex-wrap justify-center mx-10">
+      <ion-avatar data-tooltip-target="tooltip-default" class="h-10 w-10" *ngFor="let v of supported">
+        <img [src]="'assets/icon/'+v+'.png'" alt="">
+      </ion-avatar>
+    </div>
+  </div>
+  <!--registered-->
+  <div [hidden]="!registered">
+    <ion-avatar [hidden]="activeScan" class="mx-auto my-5 h-52 w-52">
+      <img [src]="'assets/icon/'+wallet.coin+'.png'">
+    </ion-avatar>
+    <ion-item lines="full" class="border-t">
+      <ion-label>
+        <h2 class="tracking-wider">Address</h2>
+        <p>{{wallet.address}}</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-button color="tertiary" (click)="toggleRegister()" class="mt-10 mx-auto block w-48">
+      <ion-icon slot="start" name="wallet"></ion-icon>
+      <ion-label>Change Address</ion-label>
+    </ion-button>
+  </div>
+</ion-content>

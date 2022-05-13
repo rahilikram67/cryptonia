@@ -1,0 +1,14 @@
+<ion-content fullscreen>
+  <ion-img class="w-32 h-32 mx-auto mt-4" src="assets/inner-logo.png"></ion-img>
+  <div
+    class="b-0 flex flex-col log-opts items-center mt-7 absolute w-full bg-gradient-to-r from-sky-500 to-indigo-500 rounded-tl-[30px] rounded-tr-[30px]">
+    <p class="text-lg text-white mt-10 tracking-widest">Login/Register</p>
+    <div class="w-[70%]">
+      <ion-button *ngFor="let v of btns" (click)="signIn(v.icon)" class="nopad-button w-full tracking-wide h-10 mt-2 first:mt-10" [color]="v.color">
+        <ion-icon size="large" [name]="v.icon"></ion-icon>
+        <ion-label class="mx-auto">{{v.title}}</ion-label>
+      </ion-button>
+    </div>
+  </div>
+  <ion-progress-bar [hidden]="progress" color="warning" type="indeterminate" class="waiting"></ion-progress-bar>
+</ion-content>
