@@ -35,9 +35,9 @@ export class AppComponent implements OnInit {
     let data = await this.fireService.getDocById("users", String(uid))
     this.userData = { img: "assets/outer-logo.png", name: data?.displayName, email: data?.email }
     //show ad
-    // setInterval(async() => {
-    //   await this.adService.showVideo()
-    // }, 10*60*1000)
+    setInterval(async() => {
+      await this.adService.showVideo()
+    }, 10*60*1000)
   }
   async ngAfterViewInit() {
     // enable dark mode is user applied for this

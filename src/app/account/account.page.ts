@@ -29,6 +29,7 @@ export class AccountPage {
     let obj = await this.fireService.getDocById("wallets", await this.capStorage.get("uid") as string)
     if (!obj) return
     this.wallet = obj
+    this.registered = true
   }
   async ngAfterViewInit() {
     this.videoEl = this.video.nativeElement;
