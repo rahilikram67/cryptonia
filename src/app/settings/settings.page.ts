@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../services/storage.service';
 import { NavController } from '@ionic/angular';
-import { FirestoreService } from '../services/firestore.service';
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.page.html',
@@ -13,7 +13,7 @@ export class SettingsPage implements OnInit {
   constructor(
     private capStorage: StorageService,
     private nav: NavController,
-    private fireService: FirestoreService
+
   ) { }
 
   async ngOnInit() {
