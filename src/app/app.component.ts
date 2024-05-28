@@ -10,7 +10,8 @@ export class AppComponent implements OnInit {
   public appPages = [
     { title: 'Market', url: '/market', img: "assets/icon/BTC.png" },
     { title: 'Settings', url: '/settings', img: "assets/settings.gif" },
-    { title: 'Account', url: '/account', img: "assets/person.png" }
+    { title: 'About us', url: '/aboutus', img: "assets/person.png" },
+    { title: 'Contact us', url: '/contactus', img: "assets/mail.png" },
   ];
   userData = { img: "", name: "", email: "" }
   constructor(

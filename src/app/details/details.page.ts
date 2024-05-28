@@ -51,7 +51,7 @@ export class DetailsPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private adService: AdService
-    ) {
+  ) {
     this.params = this.route.snapshot.params
   }
 
@@ -61,6 +61,11 @@ export class DetailsPage implements OnInit {
     this.chart1()
     this.chart2()
     this.chart3()
+  }
+
+  async ionViewWillEnter() {
+    await this.adService.showVideo()
+    await this.adService.showInterstitial()
   }
 
   async getData(start: number = null, end: number = null) {
@@ -73,8 +78,8 @@ export class DetailsPage implements OnInit {
     end && Object.assign(opts, { endTime: end })
     let params = new URLSearchParams(opts as any).toString()
     this.data = (await axios.get(`${uri}?${params}`)).data
-    this.dates.first = new Date(this.data[0][0]).toISOString().replace("T"," ")
-    this.dates.last = new Date(this.data.slice(-1)[0][0]).toISOString().replace("T"," ")
+    this.dates.first = new Date(this.data[0][0]).toISOString().replace("T", " ")
+    this.dates.last = new Date(this.data.slice(-1)[0][0]).toISOString().replace("T", " ")
     this.data = this.data.length > 45 ? this.data.slice(-45) : this.data
   }
 
@@ -208,7 +213,7 @@ export class DetailsPage implements OnInit {
   }
   async timeChange(target, turn) {
     this.dates[turn] = target.value
-    await this.getData(new Date(this.dates.first.replace(" ","T")).getTime(), new Date(this.dates.last.replace(" ","T")).getTime())
+    await this.getData(new Date(this.dates.first.replace(" ", "T")).getTime(), new Date(this.dates.last.replace(" ", "T")).getTime())
     this.chart[0].updateSeries([{ data: this.chart1_series() }])
   }
 

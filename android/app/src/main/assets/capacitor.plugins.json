@@ -4,10 +4,6 @@
 		"classpath": "com.getcapacitor.community.admob.AdMob"
 	},
 	{
-		"pkg": "@capacitor-firebase/authentication",
-		"classpath": "dev.robingenz.capacitorjs.plugins.firebase.authentication.FirebaseAuthenticationPlugin"
-	},
-	{
 		"pkg": "@capacitor/app",
 		"classpath": "com.capacitorjs.plugins.app.AppPlugin"
 	},

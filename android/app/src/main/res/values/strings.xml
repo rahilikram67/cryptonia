@@ -4,5 +4,5 @@
     <string name="title_activity_main">Cryptonia</string>
     <string name="package_name">com.cryptonia.app</string>
     <string name="custom_url_scheme">com.cryptonia.app</string>
-    <string name="admob_app_id">ca-app-pub-3220272216269898~9026561717</string>
+    <string name="admob_app_id">ca-app-pub-9055433483734847~3264373182</string>
 </resources>

@@ -35,6 +35,13 @@ export class MarketPage implements OnInit {
     }
     // show ads
   }
+
+  async ionViewWillEnter() {
+    await this.adService.showVideo()
+    await this.adService.showInterstitial()
+  }
+
+
   parseData(data: any, using = 'USDT') {
     let arr = [];
     let temp = data.filter((item: any) => item.symbol.endsWith(using));
@@ -85,5 +92,13 @@ export class MarketPage implements OnInit {
         color: obj.color,
       },
     ]);
+  }
+
+  handleRefresh(event) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      window.location.reload()
+      event.target.complete();
+    }, 2000);
   }
 }

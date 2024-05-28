@@ -24,14 +24,5 @@ export class SettingsPage implements OnInit {
     this.capStorage.set('darkMode', String(ev.detail.checked))
   }
 
-  logout() {
-    this.capStorage.remove('uid')
-    this.nav.navigateRoot('/login', { animationDirection: "back", replaceUrl: true })
-  }
-  async removeAcc(){
-    //this.fireService.delDoc("users", String(await this.capStorage.get('uid')))
-    document.body.classList.toggle('dark', false);
-    await this.capStorage.clear()
-    this.logout()
-  }
+  
 }
