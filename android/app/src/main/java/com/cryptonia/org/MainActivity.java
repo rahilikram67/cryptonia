@@ -1,4 +1,4 @@
-package com.cryptonia.app;
+package com.cryptonia.org;
 
 import com.getcapacitor.BridgeActivity;
 

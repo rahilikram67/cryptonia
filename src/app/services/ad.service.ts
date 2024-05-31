@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AdService {
-  testing = !environment.production;
+  testing = true //!environment.production;
   constructor() { }
   async ngOnInit() {
   }

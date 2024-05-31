@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cryptonia.app">
+    package="com.cryptonia.org">
 
     <application
         android:allowBackup="true"
@@ -14,7 +14,7 @@
          android:value="@string/admob_app_id"/>
         <activity
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode"
-            android:name="com.cryptonia.app.MainActivity"
+            android:name="com.cryptonia.org.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBarLaunch"
             android:launchMode="singleTask">
@@ -35,6 +35,6 @@
     </application>
 
     
-    
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
