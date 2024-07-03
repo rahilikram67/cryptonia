@@ -35,8 +35,8 @@
     <ion-select-option *ngFor="let v of compare" [value]="v">{{v}}</ion-select-option>
   </ion-select>
   <!--ionic app loads-->
-  <ion-list [hidden]="nodata">
-    <ion-item *ngFor="let v of skeleton" [hidden]="data.length!==0">
+  <ion-list *ngIf="!nodata">
+    <ion-item *ngFor="let v of skeleton"  [hidden]="!showSkelton">
       <ion-avatar slot="start" class="item-avatar">
         <ion-skeleton-text animated></ion-skeleton-text>
       </ion-avatar>
@@ -76,8 +76,14 @@
       </ion-label>
     </ion-item>
   </ion-list>
+
+  <div *ngIf="!data.length && !showSkelton" class="flex items-center justify-center gap-2 flex-col border border-white w-32 h-32 mx-auto mt-10  rounded-full">
+    <ion-icon class="text-6xl" name="sad-outline"></ion-icon>
+    <ion-text>No Data</ion-text>
+  </div>
+  
   <!--no data image display-->
-  <div [hidden]="!nodata" class="ion-padding">
+  <div *ngIf="nodata" class="ion-padding">
     <ion-img src="assets/offline.png"></ion-img>
   </div>
 

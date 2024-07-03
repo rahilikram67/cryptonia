@@ -14,6 +14,7 @@ export class MarketPage implements OnInit {
   allData: any = [];
   filteredData = [];
   skeleton = Array(6).fill(0);
+  showSkelton = false
   icons = allIcons;
   compare = compare;
   filter = 'USDT';
@@ -24,6 +25,7 @@ export class MarketPage implements OnInit {
     private adService: AdService
   ) { }
   async ngOnInit() {
+    this.showSkelton = true
     try {
       this.allData = (
         await axios.get('https://api.binance.com/api/v3/ticker/24hr')
@@ -33,6 +35,7 @@ export class MarketPage implements OnInit {
     } catch (error) {
       this.nodata = true
     }
+    this.showSkelton = false
     // show ads
   }
 
@@ -43,6 +46,7 @@ export class MarketPage implements OnInit {
 
 
   parseData(data: any, using = 'USDT') {
+    this.showSkelton = true
     let arr = [];
     let temp = data.filter((item: any) => item.symbol.endsWith(using));
 
@@ -60,6 +64,7 @@ export class MarketPage implements OnInit {
       });
       arr.sort((a, b) => Number(b.price) - Number(a.price));
     }
+    this.showSkelton = false
     return arr;
   }
   includes(symbol) {
@@ -73,12 +78,13 @@ export class MarketPage implements OnInit {
     this.showSearch = !this.showSearch;
   }
   find(el) {
-    console.log(el.value);
+    this.showSkelton = true
     if (!el.value) this.data = this.filteredData;
     else
       this.data = this.filteredData.filter((item: any) =>
         item.symbol.includes(el.value.toUpperCase())
       );
+    this.showSkelton = false
   }
   details(obj) {
     this.router.navigateForward([

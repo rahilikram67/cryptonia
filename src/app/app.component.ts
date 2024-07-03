@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdService } from './services/ad.service';
+import { StorageService } from './services/storage.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit {
   ];
   userData = { img: "", name: "", email: "" }
   constructor(
-    private adService: AdService
+    private adService: AdService,
+    private capStorage: StorageService,
   ) {
     // If user is not first logged this will help to login him again
     // this.loginService.currentUser.subscribe(data => {
@@ -25,15 +27,10 @@ export class AppComponent implements OnInit {
     // })
   }
   async ngOnInit() {
-    
-    
-    //show ad
-    setInterval(async() => {
-      await this.adService.showVideo()
-    }, 10*60*1000)
+    document.body.classList.toggle('dark', (await this.capStorage.get('darkMode')) == "true");
   }
   async ngAfterViewInit() {
     // enable dark mode is user applied for this
-    
+
   }
 }
