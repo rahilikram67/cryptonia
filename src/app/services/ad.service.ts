@@ -19,15 +19,15 @@ export class AdService {
       //   customData: JSON.stringify({ ...MyCustomData })
       //}
     };
-    await AdMob.prepareRewardVideoAd(options);
-    const rewardItem = await AdMob.showRewardVideoAd();
+    // await AdMob.prepareRewardVideoAd(options);
+    // const rewardItem = await AdMob.showRewardVideoAd();
   }
   async showInterstitial() {
 
-    await AdMob.prepareInterstitial({
-      adId: environment.intertial,
-      isTesting: this.testing,
-    });
-    await AdMob.showInterstitial();
+    // await AdMob.prepareInterstitial({
+    //   adId: environment.intertial,
+    //   isTesting: this.testing,
+    // });
+    // await AdMob.showInterstitial();
   }
 }
