@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Cryptonia</string>
     <string name="title_activity_main">Cryptonia</string>
-    <string name="package_name">com.cryptonia.org</string>
-    <string name="custom_url_scheme">com.cryptonia.org</string>
+    <string name="package_name">com.cryptonia.crt</string>
+    <string name="custom_url_scheme">com.cryptonia.crt</string>
     <string name="admob_app_id">ca-app-pub-3220272216269898~9026561717</string>
 </resources>

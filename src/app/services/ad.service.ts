@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AdService {
-  testing = true //!environment.production;
+  testing = false //!environment.production;
   constructor() { }
   async ngOnInit() {
   }
@@ -13,21 +13,16 @@ export class AdService {
     const options: RewardAdOptions = {
       adId: environment.rewardId,
       isTesting: this.testing,
-      // npa: true
-      // ssv: {
-      //   userId: "A user ID to send to your SSV"
-      //   customData: JSON.stringify({ ...MyCustomData })
-      //}
+      npa: true,
     };
-    // await AdMob.prepareRewardVideoAd(options);
-    // const rewardItem = await AdMob.showRewardVideoAd();
+    await AdMob.prepareRewardVideoAd(options)    
+    const rewardItem = await AdMob.showRewardVideoAd();
   }
   async showInterstitial() {
-
-    // await AdMob.prepareInterstitial({
-    //   adId: environment.intertial,
-    //   isTesting: this.testing,
-    // });
-    // await AdMob.showInterstitial();
+    await AdMob.prepareInterstitial({
+      adId: environment.intertial,
+      isTesting: this.testing,
+    });
+    await AdMob.showInterstitial();
   }
 }

@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.cryptonia.org',
+  appId: 'com.cryptonia.crt',
   appName: 'Cryptonia',
   webDir: 'www',
 };

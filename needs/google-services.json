@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1086523143377:android:120153112894fc12c101f0",
         "android_client_info": {
-          "package_name": "com.cryptonia.org"
+          "package_name": "com.cryptonia.crt"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "1086523143377-jio0bg2jl0ecaifc3omjgrpjv6aha7d9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.cryptonia.org",
+            "package_name": "com.cryptonia.crt",
             "certificate_hash": "d6538dd13a4862c28632c208c0ddce2f5be850f5"
           }
         },
