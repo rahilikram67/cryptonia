@@ -10,6 +10,7 @@ import { NavController } from '@ionic/angular';
 export class SettingsPage implements OnInit {
   btns = ["Logout", "Delete Account"]
   darkToggle = false;
+  notifications = false
   constructor(
     private capStorage: StorageService,
     private nav: NavController,
@@ -18,11 +19,16 @@ export class SettingsPage implements OnInit {
 
   async ngOnInit() {
     this.darkToggle = (await this.capStorage.get('darkMode')) == "true"
+    this.notifications = (await this.capStorage.get('notifications')) == "true"
   }
   darkMode(ev: any) {
     document.body.classList.toggle('dark', ev.detail.checked);
     this.capStorage.set('darkMode', String(ev.detail.checked))
   }
 
-  
+  changeNotifications(ev: any) {
+    this.capStorage.set('notifications', String(ev.detail.checked))
+  }
+
+
 }

@@ -10,7 +10,7 @@
 <ion-content>
   <ion-item lines="full">
     <ion-label>Notifications</ion-label>
-    <ion-toggle slot="end"></ion-toggle>
+    <ion-toggle (ionChange)="changeNotifications($event)" [checked]="notifications" slot="end"></ion-toggle>
   </ion-item>
   <ion-item lines="full">
     <ion-label>Dark Mode</ion-label>
