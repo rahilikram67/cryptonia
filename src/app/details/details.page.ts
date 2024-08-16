@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import axios from "axios"
+
 import ApexCharts from "apexcharts"
 import { AdService } from '../services/ad.service';
+import { ToastController } from '@ionic/angular';
+import { lastValueFrom } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-details',
   templateUrl: './details.page.html',
@@ -50,14 +53,23 @@ export class DetailsPage implements OnInit {
   ]
   constructor(
     private route: ActivatedRoute,
-    private adService: AdService
+    private adService: AdService,
+    private toast: ToastController,
+    private http: HttpClient
   ) {
     this.params = this.route.snapshot.params
   }
 
   async ngOnInit() {
     this.adService.showInterstitial()
-    this.monthly = (await axios.get("https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1M")).data.slice(-12)
+    try {
+      this.monthly = (await lastValueFrom(this.http.get<any>("https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1M")))?.slice(-12)
+    } catch (error) {
+      const toast = await this.toast.create({ message: 'Couldn\'t fetch details', duration: 2000, position: "bottom" })
+      await toast.present()
+      return
+    }
+
     this.chart1()
     this.chart2()
     this.chart3()
@@ -66,6 +78,7 @@ export class DetailsPage implements OnInit {
   async ionViewWillEnter() {
     await this.adService.showVideo()
     await this.adService.showInterstitial()
+    console.log(this.monthly)
   }
 
   async getData(start: number = null, end: number = null) {
@@ -77,7 +90,17 @@ export class DetailsPage implements OnInit {
     start && Object.assign(opts, { startTime: start })
     end && Object.assign(opts, { endTime: end })
     let params = new URLSearchParams(opts as any).toString()
-    this.data = (await axios.get(`${uri}?${params}`)).data
+
+    try {
+      this.data = (await lastValueFrom(this.http.get<any>(`${uri}?${params}`)))
+    } catch (error) {
+      const toast = await this.toast.create({ message: 'Couldn\'t fetch details', duration: 2000, position: "bottom" })
+      await toast.present()
+      return
+    }
+
+
+
     this.dates.first = new Date(this.data[0][0]).toISOString().replace("T", " ")
     this.dates.last = new Date(this.data.slice(-1)[0][0]).toISOString().replace("T", " ")
     this.data = this.data.length > 45 ? this.data.slice(-45) : this.data

@@ -29,10 +29,9 @@
     "@capacitor/status-bar": "^6.0.0",
     "@ionic/angular": "^6.0.0",
     "apexcharts": "^3.35.0",
-    "axios": "^0.26.1",
     "firebase": "^9.6.11",
     "jsqr": "^1.4.0",
-    "rxjs": "~6.6.0",
+    "rxjs": "^7.8.1",
     "tslib": "^2.2.0",
     "wallet-address-validator": "^0.2.4",
     "zone.js": "~0.11.4"

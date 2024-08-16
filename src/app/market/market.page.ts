@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import axios from 'axios';
 import allIcons from './data.json';
 import compare from './compare.json';
-import { NavController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 import { AdService } from '../services/ad.service';
+import { HttpClient } from '@angular/common/http';
+import { lastValueFrom } from 'rxjs';
 @Component({
   selector: 'app-market',
   templateUrl: './market.page.html',
@@ -19,21 +20,26 @@ export class MarketPage implements OnInit {
   compare = compare;
   filter = 'USDT';
   showSearch = false;
-  nodata = false
+  
   constructor(
     private router: NavController,
-    private adService: AdService
+    private adService: AdService,
+    private http: HttpClient,
+    private toast: ToastController
   ) { }
   async ngOnInit() {
     this.showSkelton = true
     try {
+
+
       this.allData = (
-        await axios.get('https://api.binance.com/api/v3/ticker/24hr')
-      ).data;
+        await lastValueFrom(this.http.get('https://api.binance.com/api/v3/ticker/24hr'))
+      )
       this.filteredData = this.parseData(this.allData, this.filter);
       this.data = this.filteredData;
     } catch (error) {
-      this.nodata = true
+      const toast = await this.toast.create({ message: 'Please check if you are offline', duration: 2000, position: "bottom" })
+      await toast.present()
     }
     this.showSkelton = false
     // show ads
