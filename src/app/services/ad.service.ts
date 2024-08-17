@@ -10,19 +10,19 @@ export class AdService {
   async ngOnInit() {
   }
   async showVideo() {
-    // const options: RewardAdOptions = {
-    //   adId: environment.rewardId,
-    //   isTesting: this.testing,
-    //   npa: true,
-    // };
-    // await AdMob.prepareRewardVideoAd(options)    
-    // const rewardItem = await AdMob.showRewardVideoAd();
+    const options: RewardAdOptions = {
+      adId: environment.rewardId,
+      isTesting: this.testing,
+      npa: true,
+    };
+    await AdMob.prepareRewardVideoAd(options)    
+    const rewardItem = await AdMob.showRewardVideoAd();
   }
   async showInterstitial() {
-    // await AdMob.prepareInterstitial({
-    //   adId: environment.intertial,
-    //   isTesting: this.testing,
-    // });
-    // await AdMob.showInterstitial();
+    await AdMob.prepareInterstitial({
+      adId: environment.intertial,
+      isTesting: this.testing,
+    });
+    await AdMob.showInterstitial();
   }
 }
