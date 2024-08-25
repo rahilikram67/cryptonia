@@ -4,13 +4,10 @@
 
 export const environment = {
   production: false,
-  apikey: "8a89223e6e824c05af94c0c4108d7cdc",
-  appId: "ca-app-pub-9055433483734847~3264373182",
-  rewardId: "ca-app-pub-9055433483734847/3478003907",
-  intertial: "ca-app-pub-9055433483734847/3934913872",
-  banner:"ca-app-pub-9055433483734847/1700466925"
+  appId: "ca-app-pub-9174043126799871~3835043159",
+  rewardId: "ca-app-pub-9174043126799871/1947246410",
+  intertial: "ca-app-pub-9174043126799871/9015116010",
 };
-
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
