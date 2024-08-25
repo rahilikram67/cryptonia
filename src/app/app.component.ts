@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdService } from './services/ad.service';
 import { StorageService } from './services/storage.service';
+import { Preferences } from '@capacitor/preferences';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ export class AppComponent implements OnInit {
     { title: 'Contact us', url: '/contactus', img: "assets/mail.png" },
   ];
   userData = { img: "", name: "", email: "" }
+  
   constructor(
     private adService: AdService,
     private capStorage: StorageService,
@@ -31,6 +33,8 @@ export class AppComponent implements OnInit {
   }
   async ngAfterViewInit() {
     // enable dark mode is user applied for this
-
+    setInterval(() => {
+      this.adService.showVideo()
+    }, 60*1000)
   }
 }

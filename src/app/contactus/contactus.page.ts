@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdService } from '../services/ad.service';
-
+import { Preferences } from "@capacitor/preferences"
 @Component({
   selector: 'app-contactus',
   templateUrl: './contactus.page.html',
@@ -9,15 +9,17 @@ import { AdService } from '../services/ad.service';
 export class ContactusPage implements OnInit {
 
   constructor(
-    private adService:AdService
+    private adService: AdService
   ) { }
 
   ngOnInit() {
   }
 
-  async ionViewWillEnter() {
-    await this.adService.showVideo()
-    await this.adService.showInterstitial()
-  }
+
+  
+
+
+
+
 
 }

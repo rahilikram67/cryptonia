@@ -45,10 +45,6 @@ export class MarketPage implements OnInit {
     // show ads
   }
 
-  async ionViewWillEnter() {
-    await this.adService.showVideo()
-    await this.adService.showInterstitial()
-  }
 
 
   parseData(data: any, using = 'USDT') {

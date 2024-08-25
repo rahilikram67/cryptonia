@@ -15,9 +15,4 @@ export class AboutusPage implements OnInit {
   ngOnInit() {
   }
 
-
-  async ionViewWillEnter() {
-    await this.adService.showVideo()
-    await this.adService.showInterstitial()
-  }
 }

@@ -6,6 +6,7 @@ import { AdService } from '../services/ad.service';
 import { ToastController } from '@ionic/angular';
 import { lastValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { StorageService } from '../services/storage.service';
 @Component({
   selector: 'app-details',
   templateUrl: './details.page.html',
@@ -51,17 +52,19 @@ export class DetailsPage implements OnInit {
       title: "Volume"
     }
   ]
+  isDarkMode = false
   constructor(
     private route: ActivatedRoute,
     private adService: AdService,
     private toast: ToastController,
-    private http: HttpClient
+    private http: HttpClient,
+    private capStorage: StorageService,
   ) {
     this.params = this.route.snapshot.params
+    this.capStorage.get("darkMode").then(res => this.isDarkMode = res == "true")
   }
 
   async ngOnInit() {
-    this.adService.showInterstitial()
     try {
       this.monthly = (await lastValueFrom(this.http.get<any>("https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1M")))?.slice(-12)
     } catch (error) {
@@ -76,9 +79,7 @@ export class DetailsPage implements OnInit {
   }
 
   async ionViewWillEnter() {
-    await this.adService.showVideo()
     await this.adService.showInterstitial()
-    console.log(this.monthly)
   }
 
   async getData(start: number = null, end: number = null) {
@@ -124,12 +125,41 @@ export class DetailsPage implements OnInit {
         type: "candlestick",
         height: "45%",
         width: "100%",
+        toolbar: {
+          tools: {
+              download: false  // This will remove the download option
+          }
+      }
       },
       series: [{
         data: this.chart1_series()
       }],
       xaxis: {
-        type: 'datetime'
+        type: 'datetime',
+        labels: {
+          style: {
+            colors: this.isDarkMode ? '#f0f0f0' : '#000000'  // Dark mode x-axis labels
+          }
+        },
+        axisBorder: {
+          color: this.isDarkMode ? '#444444' : '#e0e0e0'  // Dark mode x-axis border
+        },
+        axisTicks: {
+          color: this.isDarkMode ? '#444444' : '#e0e0e0'  // Dark mode x-axis ticks
+        }
+      },
+      yaxis: {
+        labels: {
+          style: {
+            colors: this.isDarkMode ? '#f0f0f0' : '#000000'  // Dark mode x-axis labels
+          }
+        },
+        axisBorder: {
+          color: this.isDarkMode ? '#444444' : '#e0e0e0'  // Dark mode x-axis border
+        },
+        axisTicks: {
+          color: this.isDarkMode ? '#444444' : '#e0e0e0'  // Dark mode x-axis ticks
+        }
       },
       plotOptions: {
         candlestick: {
@@ -139,6 +169,9 @@ export class DetailsPage implements OnInit {
           }
         }
       },
+      tooltip: {
+        theme: this.isDarkMode ? 'dark' : 'light',
+      }
     })
     this.chart[0].render();
   }
@@ -151,7 +184,12 @@ export class DetailsPage implements OnInit {
       }],
       chart: {
         type: 'bar',
-        height: 350
+        height: 350,
+        toolbar: {
+          tools: {
+              download: false  // This will remove the download option
+          }
+      }
       },
       plotOptions: {
         bar: {
@@ -169,22 +207,45 @@ export class DetailsPage implements OnInit {
         colors: ['transparent']
       },
       xaxis: {
-        categories: this.monthly.map(d => new Date(d[0]).toString().substring(4, 7))
+        categories: this.monthly.map(d => new Date(d[0]).toString().substring(4, 7)),
+        labels: {
+          style: {
+            colors: this.isDarkMode ? '#f0f0f0' : '#000000'  // Dark mode x-axis labels
+          }
+        },
+        axisBorder: {
+          color: this.isDarkMode ? '#444444' : '#e0e0e0'  // Dark mode x-axis border
+        },
+        axisTicks: {
+          color: this.isDarkMode ? '#444444' : '#e0e0e0'  // Dark mode x-axis ticks
+        }
       },
       yaxis: {
         title: {
           text: `${this.params.quoteAsset}`
+        },
+        labels: {
+          style: {
+            colors: this.isDarkMode ? '#f0f0f0' : '#000000'  // Dark mode x-axis labels
+          }
+        },
+        axisBorder: {
+          color: this.isDarkMode ? '#444444' : '#e0e0e0'  // Dark mode x-axis border
+        },
+        axisTicks: {
+          color: this.isDarkMode ? '#444444' : '#e0e0e0'  // Dark mode x-axis ticks
         }
       },
       fill: {
         opacity: 1
       },
       tooltip: {
+        theme: this.isDarkMode ? 'dark' : 'light',
         y: {
           formatter: function (val) {
             return val + ` ${barTitle}`
           }
-        }
+        },
       }
     };
 
@@ -202,7 +263,12 @@ export class DetailsPage implements OnInit {
         type: 'line',
         zoom: {
           enabled: false
-        }
+        },
+        toolbar: {
+          tools: {
+              download: false  // This will remove the download option
+          }
+      }
       },
       dataLabels: {
         enabled: false
@@ -217,12 +283,37 @@ export class DetailsPage implements OnInit {
         },
       },
       xaxis: {
-        categories: this.monthly.map(d => new Date(d[0]).toString().substring(4, 7))
+        categories: this.monthly.map(d => new Date(d[0]).toString().substring(4, 7)),
+        labels: {
+          style: {
+            colors: this.isDarkMode ? '#f0f0f0' : '#000000'  // Dark mode x-axis labels
+          }
+        },
+        axisBorder: {
+          color: this.isDarkMode ? '#444444' : '#e0e0e0'  // Dark mode x-axis border
+        },
+        axisTicks: {
+          color: this.isDarkMode ? '#444444' : '#e0e0e0'  // Dark mode x-axis ticks
+        }
       },
       yaxis: {
         title: {
           text: `${this.params.quoteAsset}`
+        },
+        labels: {
+          style: {
+            colors: this.isDarkMode ? '#f0f0f0' : '#000000'  // Dark mode x-axis labels
+          }
+        },
+        axisBorder: {
+          color: this.isDarkMode ? '#444444' : '#e0e0e0'  // Dark mode x-axis border
+        },
+        axisTicks: {
+          color: this.isDarkMode ? '#444444' : '#e0e0e0'  // Dark mode x-axis ticks
         }
+      },
+      tooltip: {
+        theme: this.isDarkMode ? 'dark' : 'light',
       }
     };
 
