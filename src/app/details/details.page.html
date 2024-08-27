@@ -10,7 +10,7 @@
       <ion-buttons>
         <ion-img class="h-10 w-10" src="assets/icon/{{this.params.baseAsset}}.png" alt="logo"></ion-img>
         <ion-icon class="text-lg" name="arrow-forward-outline"></ion-icon>
-        <ion-img class="h-10 w-10" src="assets/icon/{{this.params.quoteAsset}}.png" alt="logo"></ion-img>
+        <ion-img class="h-10 w-10" crossorogin src="assets/icon/{{this.params.quoteAsset}}.png" alt="logo"></ion-img>
       </ion-buttons>
     </ion-title>
   </ion-toolbar>
@@ -22,7 +22,7 @@
   </ion-avatar>
   <ion-grid class="mx-10">
     <ion-row *ngFor="let v of labels">
-      <ion-col class="text-left tracking-widest text-lg border text-center">{{v.text}}</ion-col>
+      <ion-col class="tracking-widest text-lg border text-center">{{v.text}}</ion-col>
       <ion-col class="border flex tracking-widest text-lg items-center justify-center">{{params[v.prop]}}</ion-col>
     </ion-row>
   </ion-grid>
