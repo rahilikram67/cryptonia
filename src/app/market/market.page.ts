@@ -11,8 +11,8 @@ import { lastValueFrom } from 'rxjs';
   styleUrls: ['./market.page.scss'],
 })
 export class MarketPage implements OnInit {
-  data: any = [];
-  allData: any = [];
+  data: any[] = [];
+  allData: any[] = [];
   filteredData = [];
   skeleton = Array(6).fill(0);
   showSkelton = false
@@ -20,7 +20,7 @@ export class MarketPage implements OnInit {
   compare = compare;
   filter = 'USDT';
   showSearch = false;
-  
+  offline = false
   constructor(
     private router: NavController,
     private adService: AdService,
@@ -30,16 +30,15 @@ export class MarketPage implements OnInit {
   async ngOnInit() {
     this.showSkelton = true
     try {
-
-
       this.allData = (
-        await lastValueFrom(this.http.get('https://api.binance.com/api/v3/ticker/24hr'))
+        await lastValueFrom(this.http.get<any[]>('https://api.binance.com/api/v3/ticker/24hr'))
       )
       this.filteredData = this.parseData(this.allData, this.filter);
       this.data = this.filteredData;
     } catch (error) {
       const toast = await this.toast.create({ message: 'Please check if you are offline', duration: 2000, position: "bottom" })
       await toast.present()
+      this.offline = true
     }
     this.showSkelton = false
     // show ads
@@ -50,22 +49,27 @@ export class MarketPage implements OnInit {
   parseData(data: any, using = 'USDT') {
     this.showSkelton = true
     let arr = [];
-    let temp = data.filter((item: any) => item.symbol.endsWith(using));
+    try {
+      let temp = data.filter((item: any) => item.symbol.endsWith(using));
 
-    for (let el of temp) {
-      let symbol: any = el.symbol.replace(using, '');
-      let price = Number(el.lastPrice);
-      arr.push({
-        symbol: symbol,
-        price: price,
-        percent: el.priceChangePercent.slice(0, 4),
-        using,
-        volume: Number(el.volume).toFixed(0),
-        color:
-          el.prevClosePrice > el.lastPrice ? 'text-red-600' : 'text-green-600',
-      });
-      arr.sort((a, b) => Number(b.price) - Number(a.price));
+      for (let el of temp) {
+        let symbol: any = el.symbol.replace(using, '');
+        let price = Number(el.lastPrice);
+        arr.push({
+          symbol: symbol,
+          price: price,
+          percent: el.priceChangePercent.slice(0, 4),
+          using,
+          volume: Number(el.volume).toFixed(0),
+          color:
+            el.prevClosePrice > el.lastPrice ? 'text-red-600' : 'text-green-600',
+        });
+        arr.sort((a, b) => Number(b.price) - Number(a.price));
+      }
+    } catch (error) {
+      console.log(error)
     }
+
     this.showSkelton = false
     return arr;
   }

@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
     { title: 'About us', url: '/aboutus', img: "assets/person.png" },
     { title: 'Contact us', url: '/contactus', img: "assets/mail.png" },
   ];
-  userData = { img: "", name: "", email: "" }
+  
   
   constructor(
     private adService: AdService,
@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
   async ngAfterViewInit() {
     // enable dark mode is user applied for this
     setInterval(() => {
-      this.adService.showVideo()
+      this.adService.showVideo().catch(console.log)
     }, 60*1000)
   }
 }

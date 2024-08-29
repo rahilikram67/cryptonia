@@ -79,7 +79,13 @@ export class DetailsPage implements OnInit {
   }
 
   async ionViewWillEnter() {
-    await this.adService.showInterstitial()
+    try {
+      const random = Math.floor(Math.random() * (10 - 1 + 1)) + 1;
+      if (random % 2 == 0) await this.adService.showVideo()
+      else await this.adService.showInterstitial()
+    } catch (error) {
+
+    }
   }
 
   async getData(start: number = null, end: number = null) {
@@ -127,9 +133,9 @@ export class DetailsPage implements OnInit {
         width: "100%",
         toolbar: {
           tools: {
-              download: false  // This will remove the download option
+            download: false  // This will remove the download option
           }
-      }
+        }
       },
       series: [{
         data: this.chart1_series()
@@ -187,9 +193,9 @@ export class DetailsPage implements OnInit {
         height: 350,
         toolbar: {
           tools: {
-              download: false  // This will remove the download option
+            download: false  // This will remove the download option
           }
-      }
+        }
       },
       plotOptions: {
         bar: {
@@ -266,9 +272,9 @@ export class DetailsPage implements OnInit {
         },
         toolbar: {
           tools: {
-              download: false  // This will remove the download option
+            download: false  // This will remove the download option
           }
-      }
+        }
       },
       dataLabels: {
         enabled: false
